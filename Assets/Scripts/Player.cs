@@ -6,6 +6,9 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private LayerMask layerMask;
 
+    public delegate void PlayerMoved();
+    public event PlayerMoved OnPlayerMoved;
+
     private Vector3 moveTarget;
     private float moveSpeed = 5.0f;
     void Start()
@@ -15,7 +18,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position,moveTarget,moveSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, moveTarget, moveSpeed * Time.deltaTime);
 
         if (Vector3.Distance(transform.position, moveTarget) < 0.05f)
         {
@@ -32,7 +35,11 @@ public class Player : MonoBehaviour
             }
 
             moveTarget += new Vector3(x, y, 0);
-        }
+            if (x != 0.0f || y != 0.0f)
+            {
+                OnPlayerMoved?.Invoke();
+            }
 
+        }
     }
 }
