@@ -19,8 +19,8 @@ public class Player : MonoBehaviour
 
         if (Vector3.Distance(transform.position, moveTarget) < 0.05f)
         {
-            float x = GetHorizontal();
-            float y = GetVertical();
+            float x = InputManager.GetHorizontal();
+            float y = InputManager.GetVertical();
 
             if (Mathf.Abs(x) == Mathf.Abs(y)) y = 0.0f;
 
@@ -34,33 +34,5 @@ public class Player : MonoBehaviour
             moveTarget += new Vector3(x, y, 0);
         }
 
-    }
-
-    private float GetHorizontal()
-    {
-        float x = 0.0f;
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            x = 1.0f;
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            x = -1.0f;
-        }
-        return x;
-    }
-
-    private float GetVertical()
-    {
-        float y = 0;
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            y = 1.0f;
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            y = -1.0f;
-        }
-        return y;
     }
 }
