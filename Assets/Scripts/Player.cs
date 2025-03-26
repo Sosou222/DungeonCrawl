@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private Vector3 moveTarget;
+    [SerializeField] private LayerMask layerMask;
 
+    private Vector3 moveTarget;
     private float moveSpeed = 5.0f;
     void Start()
     {
@@ -22,6 +23,13 @@ public class Player : MonoBehaviour
             float y = GetVertical();
 
             if (Mathf.Abs(x) == Mathf.Abs(y)) y = 0.0f;
+
+            Collider2D colliders = Physics2D.OverlapCircle(new Vector2(x + moveTarget.x, y + moveTarget.y), 0.25f, layerMask);
+            if (colliders != null)
+            {
+                Debug.Log("Wall detected");
+                return;
+            }
 
             moveTarget += new Vector3(x, y, 0);
         }
