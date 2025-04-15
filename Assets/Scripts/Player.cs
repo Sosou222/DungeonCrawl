@@ -30,6 +30,13 @@ public class Player : MonoBehaviour
             Collider2D colliders = Physics2D.OverlapCircle(new Vector2(x + moveTarget.x, y + moveTarget.y), 0.25f, layerMask);
             if (colliders != null)
             {
+                var movable = colliders.GetComponent<IMovable>();
+                if (movable != null)
+                {
+                    movable.Push(new Vector2(x, y));
+                    OnPlayerMoved?.Invoke();
+                }
+
                 Debug.Log("Wall detected");
                 return;
             }
