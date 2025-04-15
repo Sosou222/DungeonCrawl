@@ -38,4 +38,10 @@ public class GameManager : MonoBehaviour
     {
         return movesLeft;
     }
+
+    public void AddMoves(int amount)
+    {
+        movesLeft+=amount;
+        OnUpdateMovesLeft?.Invoke(movesLeft);
+    }
 }

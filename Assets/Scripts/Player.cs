@@ -45,7 +45,6 @@ public class Player : MonoBehaviour, IDamagable
                     OnPlayerMoved?.Invoke();
                 }
 
-                Debug.Log("Wall detected");
                 return;
             }
 
