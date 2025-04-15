@@ -2,15 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamagable
 {
     [SerializeField] private LayerMask layerMask;
 
     public delegate void PlayerMoved();
     public event PlayerMoved OnPlayerMoved;
+    public delegate void PlayerTakenDamage(int amount);
+    public event PlayerTakenDamage OnPlayerTakenDamage;
 
     private Vector3 moveTarget;
     private float moveSpeed = 5.0f;
+    private Animator animator;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
     void Start()
     {
         moveTarget = transform.position;
@@ -48,5 +56,16 @@ public class Player : MonoBehaviour
             }
 
         }
+    }
+
+    public void TakeDamage(int amount)
+    {
+        animator.Play("TakeDamage");
+        OnPlayerTakenDamage?.Invoke(amount);
+    }
+
+    public Vector2 GetCurrentPosition()
+    {
+        return new Vector2(moveTarget.x, moveTarget.y);
     }
 }

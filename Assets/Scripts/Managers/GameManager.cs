@@ -15,16 +15,22 @@ public class GameManager : MonoBehaviour
     {
         Player player = FindObjectOfType<Player>();
         player.OnPlayerMoved += OnPlayerMoved;
+        player.OnPlayerTakenDamage += OnPlayerTakeDamage;
     }
 
     private void OnPlayerMoved()
     {
-        LoseMove();
+        int moveCost = 1;
+        LoseMove(moveCost);
+    }
+    private void OnPlayerTakeDamage(int amount)
+    {
+        LoseMove(amount);
     }
 
-    private void LoseMove()
+    private void LoseMove(int amount)
     {
-        movesLeft--;
+        movesLeft-=amount;
         OnUpdateMovesLeft?.Invoke(movesLeft);
     }
 
