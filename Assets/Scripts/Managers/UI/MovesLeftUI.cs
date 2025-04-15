@@ -11,6 +11,7 @@ public class MovesLeftUI : MonoBehaviour
     {
         GameManager gameManager = FindAnyObjectByType<GameManager>();
         gameManager.OnUpdateMovesLeft += OnUpdateMovesLeft;
+        OnUpdateMovesLeft(gameManager.GetMovesLeft());
     }
 
     private void OnUpdateMovesLeft(int movesLeft)

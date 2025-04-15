@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public event UpdateMovesLeft OnUpdateMovesLeft;
 
 
-    private int movesLeft = 0;
+    [SerializeField] private int movesLeft = 0;
 
     private void Awake()
     {
@@ -26,5 +26,10 @@ public class GameManager : MonoBehaviour
     {
         movesLeft--;
         OnUpdateMovesLeft?.Invoke(movesLeft);
+    }
+
+    public int GetMovesLeft()
+    {
+        return movesLeft;
     }
 }
