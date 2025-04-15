@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
         Player player = FindObjectOfType<Player>();
         player.OnPlayerMoved += OnPlayerMoved;
         player.OnPlayerTakenDamage += OnPlayerTakeDamage;
+
+        InputManager.SetActiveInput(true);
     }
 
     private void OnPlayerMoved()
@@ -32,6 +34,11 @@ public class GameManager : MonoBehaviour
     {
         movesLeft-=amount;
         OnUpdateMovesLeft?.Invoke(movesLeft);
+        if(movesLeft <=0)
+        {
+            FindObjectOfType<GameUI>().ShowGameOverScreen();
+            InputManager.SetActiveInput(false);
+        }
     }
 
     public int GetMovesLeft()
@@ -47,6 +54,7 @@ public class GameManager : MonoBehaviour
 
     public void GoalReached()
     {
-        Debug.Log("Reached goal");
+        FindObjectOfType<GameUI>().ShowNextLevelScreen();
+        InputManager.SetActiveInput(false);
     }
 }

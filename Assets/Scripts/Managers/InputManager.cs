@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class InputManager
 {
+    private static bool active = true;
+    public static void SetActiveInput(bool activeState)
+    {
+        active = activeState;
+    }
     public static float GetHorizontal()
     {
+        if (!active) return 0.0f;
+
         float x = 0.0f;
         if (Input.GetKeyDown(KeyCode.D))
         {
@@ -20,6 +27,8 @@ public class InputManager
 
     public static float GetVertical()
     {
+        if (!active) return 0.0f;
+
         float y = 0;
         if (Input.GetKeyDown(KeyCode.W))
         {
