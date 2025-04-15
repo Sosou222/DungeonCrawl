@@ -44,4 +44,9 @@ public class GameManager : MonoBehaviour
         movesLeft+=amount;
         OnUpdateMovesLeft?.Invoke(movesLeft);
     }
+
+    public void GoalReached()
+    {
+        Debug.Log("Reached goal");
+    }
 }
